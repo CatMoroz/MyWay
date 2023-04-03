@@ -51,12 +51,35 @@ public class Pet : MonoBehaviour
                     StartCoroutine(MoveTo(gameObject.transform.position + direction));
                 }
             }
-            hitCollider = new RaycastHit();
+            else if (hitCollider.collider.gameObject.TryGetComponent<Arch>(out Arch arch))
+            {
+                if (arch.AbilityToMoveThroughHole(direction))
+                {
+                    StartCoroutine(MoveTo(gameObject.transform.position + 2 * direction));
+                }
+            }
         }
         else
         {
             StartCoroutine(MoveTo(gameObject.transform.position + direction));
         }
+    }
+    public void BeTaken(Transform parent)
+    {
+        _canMove = false;
+        this.transform.position = new Vector3(parent.position.x + (parent.localScale.x / 2 + this.transform.localScale.x / 2) * parent.forward.x,
+            parent.position.y,
+            parent.position.z + (parent.localScale.z / 2 + this.transform.localScale.z / 2) * parent.forward.z);
+        this.transform.SetParent(parent);
+    }
+    public void BeLoweredDown(Vector3 newPositionYBeforeCalculated)
+    {
+        Vector3 newPosition = new Vector3(this.transform.parent.position.x + this.transform.parent.forward.x,
+            newPositionYBeforeCalculated.y,
+            this.transform.parent.position.z + this.transform.parent.forward.z);
+        this.transform.parent = null;
+        this.transform.position = newPosition + new Vector3(0, this.transform.localScale.y / 2, 0);
+        _canMove = true;
     }
     private IEnumerator MoveTo(Vector3 target)
     {

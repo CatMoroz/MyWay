@@ -6,10 +6,7 @@ public class Moveable : MonoBehaviour
 {
     private RaycastHit hitCollider;
     private Vector3 direction;
-    private void Update()
-    {
-        Debug.DrawRay(gameObject.transform.position, direction, Color.red);
-    }
+
     public bool AbilityToMoveObject(Vector3 direction)
     {
         this.direction = direction;
@@ -32,7 +29,6 @@ public class Moveable : MonoBehaviour
     }
     public void MoveObjectTo(Vector3 target, Vector3 direction)
     {
-        this.direction = direction;
         if (Physics.Raycast(gameObject.transform.position, direction, out hitCollider, 1f))
         {
             if (hitCollider.collider.gameObject.TryGetComponent<Moveable>(out Moveable moveable))

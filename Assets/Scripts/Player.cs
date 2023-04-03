@@ -7,15 +7,31 @@ using UnityEngine.UIElements;
 public class Player : MonoBehaviour
 {
     private bool _canMove = true;
+    private bool _ifPetTaken = false;
     private Vector3 _directionMove;
     private RaycastHit hitCollider;
+    private Pet pet;
     [SerializeField] private ControledHeroSwaper _swapControledHero;
     [SerializeField] private int _speed = 2;
+    private Vector3 _positionMismatch = new Vector3(0, 0.5f, 0);
+    //Because the Player has a higher model then other models its transform.posion is shifted compared to other models
+    //so to use raycat you need to change the position of the beggining of the ray to the positions of all
+    //models
     private void Update()
     {
-        Debug.DrawRay(gameObject.transform.position, _directionMove, Color.red);
         if (_canMove && _swapControledHero.IsControledPlayer)
         {
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                if (_ifPetTaken)
+                {
+                    TryLowerThePet();
+                }
+                else
+                {
+                    TryTakePet();
+                }
+            }
             if (Input.GetKeyDown(KeyCode.W))
             { 
                 gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 0, gameObject.transform.rotation.z);
@@ -44,21 +60,69 @@ public class Player : MonoBehaviour
     }
     private void CreatePositionForMovement(Vector3 direction)
     {
-        if (Physics.Raycast(gameObject.transform.position - new Vector3(0, 0.5f, 0), _directionMove, out hitCollider, 1f))
+        if (Physics.Raycast(gameObject.transform.position + _positionMismatch, _directionMove, out hitCollider, 1f))
         {
-            if (hitCollider.collider.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
-            {
-                if (moveable.AbilityToMoveObject(direction))
-                {
-                    moveable.MoveObjectTo(moveable.gameObject.transform.position + direction, direction);
-                    StartCoroutine(MoveTo(gameObject.transform.position + direction));
-                }
-            }
-            hitCollider = new RaycastHit();
+
         }
         else
         {
-            StartCoroutine(MoveTo(gameObject.transform.position + direction));
+            if (Physics.Raycast(gameObject.transform.position - _positionMismatch, _directionMove, out hitCollider, 1f))
+            {
+                if (hitCollider.collider.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
+                {
+                    if (moveable.AbilityToMoveObject(direction))
+                    {
+                        moveable.MoveObjectTo(moveable.gameObject.transform.position + direction, direction);
+                        StartCoroutine(MoveTo(gameObject.transform.position + direction));
+                    }
+                }
+            }
+            else
+            {
+                StartCoroutine(MoveTo(gameObject.transform.position + direction));
+            }
+        }
+    }
+    private void TryTakePet()
+    {
+        if (Physics.Raycast(gameObject.transform.position - _positionMismatch, _directionMove, out hitCollider, 1f))
+        {
+            if (hitCollider.collider.gameObject.TryGetComponent<Pet>(out Pet pet))
+            {
+                this.pet = pet;
+                _ifPetTaken = true;
+                pet.BeTaken(this.transform);
+            }
+            else if (Physics.Raycast(gameObject.transform.position + _positionMismatch, _directionMove, out hitCollider, 1f))
+            {
+                if (hitCollider.collider.gameObject.TryGetComponent<Pet>(out Pet pet1))
+                {
+                    this.pet = pet1;
+                    _ifPetTaken = true;
+                    pet1.BeTaken(this.transform);
+                }
+            }
+        }
+    }
+    private void TryLowerThePet()
+    {
+        if (Physics.Raycast(gameObject.transform.position - _positionMismatch, _directionMove, out hitCollider, 1f))
+        {
+            if (Physics.Raycast(gameObject.transform.position + _positionMismatch, _directionMove, out hitCollider, 1f))
+            {
+            }
+            else
+            {
+                _ifPetTaken = false;
+                pet.BeLoweredDown(Vector3.up);
+                pet = null;
+            }
+        }
+        else
+        {
+            _ifPetTaken = false;
+            pet.BeLoweredDown(Vector3.zero);
+            pet = null;
         }
     }
     private IEnumerator MoveTo(Vector3 target)
