@@ -9,6 +9,11 @@ public class Pet : MonoBehaviour
     private RaycastHit hitCollider;
     [SerializeField] private ControledHeroSwaper _swapControledHero;
     [SerializeField] private int _speed = 2;
+    [SerializeField] private int _gravitationSpeed = 5;
+    private void Awake()
+    {
+        TryGrounded();
+    }
     private void Update()
     {
         if (_canMove && _swapControledHero.IsControledPet)
@@ -68,7 +73,7 @@ public class Pet : MonoBehaviour
     {
         _canMove = false;
         this.transform.position = new Vector3(parent.position.x + (parent.localScale.x / 2 + this.transform.localScale.x / 2) * parent.forward.x,
-            parent.position.y,
+            parent.position.y + 0.5f,
             parent.position.z + (parent.localScale.z / 2 + this.transform.localScale.z / 2) * parent.forward.z);
         this.transform.SetParent(parent);
     }
@@ -87,6 +92,30 @@ public class Pet : MonoBehaviour
         while (gameObject.transform.position != target)
         {
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, target, _speed * Time.deltaTime);
+            yield return null;
+        }
+        _canMove = true;
+        TryGrounded();
+    }
+    private void TryGrounded()
+    {
+        if (Physics.Raycast(gameObject.transform.position, Vector3.down, out hitCollider, 10f))
+        {
+            if (hitCollider.collider.gameObject.transform.position.y + hitCollider.collider.gameObject.transform.localScale.y / 2 < transform.position.y - transform.localScale.y / 2)
+            {
+                Vector3 GroudedPosition = new Vector3(transform.position.x,
+                    hitCollider.collider.gameObject.transform.position.y + hitCollider.collider.gameObject.transform.localScale.y / 2 + transform.localScale.y / 2,
+                    transform.position.z);
+                StartCoroutine(Gravitation(GroudedPosition));
+            }
+        }
+    }
+    private IEnumerator Gravitation(Vector3 target)
+    {
+        _canMove = false;
+        while (gameObject.transform.position != target)
+        {
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, target, _gravitationSpeed * Time.deltaTime);
             yield return null;
         }
         _canMove = true;

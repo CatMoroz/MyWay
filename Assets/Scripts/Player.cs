@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.GraphicsBuffer;
 
 public class Player : MonoBehaviour
 {
@@ -13,10 +14,15 @@ public class Player : MonoBehaviour
     private Pet pet;
     [SerializeField] private ControledHeroSwaper _swapControledHero;
     [SerializeField] private int _speed = 2;
-    private Vector3 _positionMismatch = new Vector3(0, 0.5f, 0);
+    [SerializeField] private int _gravitationSpeed = 5;
+    private Vector3 _positionMismatch = new Vector3(0, 1f, 0);
     //Because the Player has a higher model then other models its transform.posion is shifted compared to other models
     //so to use raycat you need to change the position of the beggining of the ray to the positions of all
     //models
+    private void Awake()
+    {
+        TryGrounded();
+    }
     private void Update()
     {
         if (_canMove && _swapControledHero.IsControledPlayer)
@@ -66,7 +72,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (Physics.Raycast(gameObject.transform.position - _positionMismatch, _directionMove, out hitCollider, 1f))
+            if (Physics.Raycast(gameObject.transform.position, _directionMove, out hitCollider, 1f))
             {
                 if (hitCollider.collider.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
                 {
@@ -85,7 +91,7 @@ public class Player : MonoBehaviour
     }
     private void TryTakePet()
     {
-        if (Physics.Raycast(gameObject.transform.position - _positionMismatch, _directionMove, out hitCollider, 1f))
+        if (Physics.Raycast(gameObject.transform.position, _directionMove, out hitCollider, 1f))
         {
             if (hitCollider.collider.gameObject.TryGetComponent<Pet>(out Pet pet))
             {
@@ -106,7 +112,7 @@ public class Player : MonoBehaviour
     }
     private void TryLowerThePet()
     {
-        if (Physics.Raycast(gameObject.transform.position - _positionMismatch, _directionMove, out hitCollider, 1f))
+        if (Physics.Raycast(gameObject.transform.position, _directionMove, out hitCollider, 1f))
         {
             if (Physics.Raycast(gameObject.transform.position + _positionMismatch, _directionMove, out hitCollider, 1f))
             {
@@ -131,6 +137,30 @@ public class Player : MonoBehaviour
         while (gameObject.transform.position != target)
         {
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, target, _speed * Time.deltaTime);
+            yield return null;
+        }
+        _canMove = true;
+        TryGrounded();
+    }
+    private void TryGrounded()
+    {
+        if (Physics.Raycast(gameObject.transform.position, Vector3.down, out hitCollider, 10f))
+        {
+            if (hitCollider.collider.gameObject.transform.position.y + hitCollider.collider.gameObject.transform.localScale.y / 2 < transform.position.y - transform.localScale.y / 2)
+            {
+                Vector3 GroudedPosition = new Vector3(transform.position.x,
+                    hitCollider.collider.gameObject.transform.position.y + hitCollider.collider.gameObject.transform.localScale.y / 2 + transform.localScale.y / 2,
+                    transform.position.z);
+                StartCoroutine(Gravitation(GroudedPosition));
+            }
+        }
+    }
+    private IEnumerator Gravitation(Vector3 target)
+    {
+        _canMove= false;
+        while (gameObject.transform.position != target)
+        {
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, target, _gravitationSpeed * Time.deltaTime);
             yield return null;
         }
         _canMove = true;
