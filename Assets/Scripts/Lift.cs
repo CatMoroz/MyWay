@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -10,12 +11,10 @@ public class Lift : MonoBehaviour
     [SerializeField] private float _floorChange;
     [SerializeField] private int _speed = 3;
 
-    private List<Collider> _blocksOnLift = new List<Collider>();
+    private Collider _blocksOnLift;
     private Vector3 _transformInActive;
     private Vector3 _transformOutActive;
-    private RaycastHit BlockOnLift;
-    private bool _isActive;
-    private bool _inProgress;
+    private int _activedActivatingBlocks;
 
     private void Awake()
     {
@@ -24,48 +23,98 @@ public class Lift : MonoBehaviour
     }
     private void Update()
     {
-        foreach ( var item in _activatingBlocks)
-        {
-            if (!item.IsActive)
-            {
-                _isActive = false;
-                break;
-            }
-            _isActive = true;
-        }
-        if (!_inProgress)
-        {
-            StartCoroutine(Work(_isActive));
-        }
+
     }
     private void OnTriggerEnter(Collider other)
     {
-        _blocksOnLift.Add(other);
+        _blocksOnLift = other;
     }
     private void OnTriggerExit(Collider other)
     {
-        _blocksOnLift.Remove(other);
-    }
-    private IEnumerator Work(bool WhereGo)
-    {
-        _inProgress = true;
-        if (WhereGo)
+        if (_blocksOnLift == other)
         {
-            while (gameObject.transform.position != _transformInActive)
-            {
-                gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, _transformInActive, _speed * Time.deltaTime);
-                yield return null;
-            }
+            _blocksOnLift = null;
         }
-        else
-        {
-            while (gameObject.transform.position != _transformOutActive)
-            {
-                gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, _transformOutActive, _speed * Time.deltaTime);
-                yield return null;
-            }
-        }
-        _inProgress = false;
     }
 
+    public void PlusActiveBlock()
+    {
+        _activedActivatingBlocks++;
+        if (_activedActivatingBlocks == _activatingBlocks.Length)
+        {
+            if (_blocksOnLift != null)
+            {
+                if (_blocksOnLift.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
+                {
+                    moveable.StopCoroutineMoveOnLift(_transformOutActive, _speed);
+                    moveable.StartCoroutineMoveOnLift(_transformInActive, _speed);
+                    StopAllCoroutines();
+                    StartCoroutine(LiftGoes(_transformInActive));
+                }
+                else if (_blocksOnLift.gameObject.TryGetComponent<Pet>(out Pet pet))
+                {
+                    pet.StopCoroutineMoveOnLift(_transformOutActive, _speed);
+                    pet.StartCoroutineMoveOnLift(_transformInActive, _speed);
+                    StopAllCoroutines();
+                    StartCoroutine(LiftGoes(_transformInActive));
+                }
+                else if (_blocksOnLift.gameObject.TryGetComponent<Player>(out Player player))
+                {
+                    player.StopCoroutineMoveOnLift(_transformOutActive, _speed);
+                    player.StartCoroutineMoveOnLift(_transformInActive, _speed);
+                    StopAllCoroutines();
+                    StartCoroutine(LiftGoes(_transformInActive));
+                }
+            }
+            else
+            {
+                StopAllCoroutines();
+                StartCoroutine(LiftGoes(_transformInActive));
+            }
+        }
+    }
+    public void MinusActiveBlock()
+    {
+        _activedActivatingBlocks--;
+        if (_activedActivatingBlocks + 1 == _activatingBlocks.Length)
+        {
+            if (_blocksOnLift != null)
+            {
+                if (_blocksOnLift.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
+                {
+                    moveable.StopCoroutineMoveOnLift(_transformInActive, _speed);
+                    moveable.StartCoroutineMoveOnLift(_transformOutActive, _speed);
+                    StopAllCoroutines();
+                    StartCoroutine(LiftGoes(_transformOutActive));
+                }
+                else if (_blocksOnLift.gameObject.TryGetComponent<Pet>(out Pet pet))
+                {
+                    pet.StopCoroutineMoveOnLift(_transformInActive, _speed);
+                    pet.StartCoroutineMoveOnLift(_transformOutActive, _speed);
+                    StopAllCoroutines();
+                    StartCoroutine(LiftGoes(_transformOutActive));
+                }
+                else if (_blocksOnLift.gameObject.TryGetComponent<Player>(out Player player))
+                {
+                    player.StopCoroutineMoveOnLift(_transformInActive, _speed);
+                    player.StartCoroutineMoveOnLift(_transformOutActive, _speed);
+                    StopAllCoroutines();
+                    StartCoroutine(LiftGoes(_transformOutActive));
+                }
+            }
+            else
+            {
+                StopAllCoroutines();
+                StartCoroutine(LiftGoes(_transformOutActive));
+            }
+        }
+    }
+    private IEnumerator LiftGoes(Vector3 NextPosition)
+    {
+        while (gameObject.transform.position != NextPosition)
+        {
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, NextPosition, _speed * Time.deltaTime);
+            yield return null;
+        }
+    }
 }

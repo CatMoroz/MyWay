@@ -18,25 +18,25 @@ public class Pet : MonoBehaviour
     {
         if (_canMove && _swapControledHero.IsControledPet)
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKey(KeyCode.W))
             {
                 gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 0, gameObject.transform.rotation.z);
                 _directionMove = Vector3.forward;
                 CreatePositionForMovement(_directionMove);
             }
-            else if (Input.GetKeyDown(KeyCode.S))
+            else if (Input.GetKey(KeyCode.S))
             {
                 gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 180, gameObject.transform.rotation.z);
                 _directionMove = Vector3.back;
                 CreatePositionForMovement(_directionMove);
             }
-            else if (Input.GetKeyDown(KeyCode.A))
+            else if (Input.GetKey(KeyCode.A))
             {
                 gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 270, gameObject.transform.rotation.z);
                 _directionMove = Vector3.left;
                 CreatePositionForMovement(_directionMove);
             }
-            else if (Input.GetKeyDown(KeyCode.D))
+            else if (Input.GetKey(KeyCode.D))
             {
                 gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 90, gameObject.transform.rotation.z);
                 _directionMove = Vector3.right;
@@ -85,6 +85,7 @@ public class Pet : MonoBehaviour
         this.transform.parent = null;
         this.transform.position = newPosition + new Vector3(0, this.transform.localScale.y / 2, 0);
         _canMove = true;
+        TryGrounded();
     }
     private IEnumerator MoveTo(Vector3 target)
     {
@@ -116,6 +117,28 @@ public class Pet : MonoBehaviour
         while (gameObject.transform.position != target)
         {
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, target, _gravitationSpeed * Time.deltaTime);
+            yield return null;
+        }
+        _canMove = true;
+    }
+    public void StartCoroutineMoveOnLift(Vector3 NextPosition, float _speed)
+    {
+        StartCoroutine(MoveOnLift(NextPosition, _speed));
+    }
+    public void StopCoroutineMoveOnLift(Vector3 NextPosition, float _speed)
+    {
+        StopAllCoroutines();
+    }
+    private IEnumerator MoveOnLift(Vector3 NextPosition, float _speed)
+    {
+        if (!_canMove)
+        {
+            yield break;
+        }
+        _canMove = false;
+        while (gameObject.transform.position != NextPosition + new Vector3(0, transform.localScale.y / 2, 0))
+        {
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, NextPosition + new Vector3(0, transform.localScale.y / 2, 0), _speed * Time.deltaTime);
             yield return null;
         }
         _canMove = true;

@@ -86,4 +86,20 @@ public class Moveable : MonoBehaviour
             yield return null;
         }
     }
+    public void StartCoroutineMoveOnLift(Vector3 NextPosition, float _speed)
+    {
+        StartCoroutine(MoveOnLift(NextPosition, _speed));
+    }
+    public void StopCoroutineMoveOnLift(Vector3 NextPosition, float _speed)
+    {
+        StopAllCoroutines();
+    }
+    private IEnumerator MoveOnLift(Vector3 NextPosition, float _speed)
+    {
+        while (gameObject.transform.position != NextPosition + new Vector3(0, transform.localScale.y / 2, 0))
+        {
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, NextPosition + new Vector3(0, transform.localScale.y / 2, 0), _speed * Time.deltaTime);
+            yield return null;
+        }
+    }
 }

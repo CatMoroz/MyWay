@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class ActivatingBlock : MonoBehaviour
 {
-    public bool IsActive { get; protected set; }
+    public UnityEvent IsActive;
+    public UnityEvent IsNotActive;
 
 }
