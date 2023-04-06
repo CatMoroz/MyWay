@@ -127,6 +127,7 @@ public class Pet : MonoBehaviour
     }
     public void StopCoroutineMoveOnLift(Vector3 NextPosition, float _speed)
     {
+        _canMove = true;
         StopAllCoroutines();
     }
     private IEnumerator MoveOnLift(Vector3 NextPosition, float _speed)

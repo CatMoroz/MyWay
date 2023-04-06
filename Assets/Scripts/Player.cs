@@ -171,13 +171,11 @@ public class Player : MonoBehaviour
     }
     public void StopCoroutineMoveOnLift(Vector3 NextPosition, float _speed)
     {
-        Debug.Log("STOP");
         _canMove = true;
         StopAllCoroutines();
     }
     private IEnumerator MoveOnLift(Vector3 NextPosition, float _speed)
     {
-        Debug.Log("GO");
         if (!_canMove)
         {
             yield break;
