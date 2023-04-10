@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Pet : MonoBehaviour
 {
@@ -8,15 +9,17 @@ public class Pet : MonoBehaviour
     private Vector3 _directionMove;
     private RaycastHit hitCollider;
     [SerializeField] private ControledHeroSwaper _swapControledHero;
+    [SerializeField] private EndLevel _endLevel;
     [SerializeField] private int _speed = 2;
     [SerializeField] private int _gravitationSpeed = 5;
+    [SerializeField] private int _ForceMovingBlocks = 1;
     private void Awake()
     {
         TryGrounded();
     }
     private void Update()
     {
-        if (_canMove && _swapControledHero.IsControledPet)
+        if (_canMove && _swapControledHero.IsControledPet && _endLevel.IsGameActive)
         {
             if (Input.GetKey(KeyCode.W))
             {
@@ -50,7 +53,7 @@ public class Pet : MonoBehaviour
         {
             if (hitCollider.collider.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
             {
-                if (moveable.AbilityToMoveObject(direction))
+                if (moveable.AbilityToMoveObject(direction, _ForceMovingBlocks))
                 {
                     moveable.MoveObjectTo(moveable.gameObject.transform.position + direction, direction);
                     StartCoroutine(MoveTo(gameObject.transform.position + direction));
@@ -58,9 +61,10 @@ public class Pet : MonoBehaviour
             }
             else if (hitCollider.collider.gameObject.TryGetComponent<Arch>(out Arch arch))
             {
-                if (arch.AbilityToMoveThroughHole(direction))
+                int LengthHole = 0;
+                if (arch.AbilityToMoveThroughHole(direction, ref LengthHole))
                 {
-                    StartCoroutine(MoveTo(gameObject.transform.position + 2 * direction));
+                    StartCoroutine(MoveTo(gameObject.transform.position + LengthHole * direction));
                 }
             }
         }

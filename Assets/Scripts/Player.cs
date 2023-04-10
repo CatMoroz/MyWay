@@ -13,8 +13,10 @@ public class Player : MonoBehaviour
     private RaycastHit hitCollider;
     private Pet pet;
     [SerializeField] private ControledHeroSwaper _swapControledHero;
+    [SerializeField] private EndLevel _endLevel;
     [SerializeField] private int _speed = 2;
     [SerializeField] private int _gravitationSpeed = 5;
+    [SerializeField] private int _ForceMovingBlocks = 2;
     private Vector3 _positionMismatch = new Vector3(0, 1f, 0);
     //Because the Player has a higher model then other models its transform.posion is shifted compared to other models
     //so to use raycat you need to change the position of the beggining of the ray to the positions of all
@@ -25,7 +27,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        if (_canMove && _swapControledHero.IsControledPlayer)
+        if (_canMove && _swapControledHero.IsControledPlayer && _endLevel.IsGameActive)
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
@@ -76,7 +78,7 @@ public class Player : MonoBehaviour
             {
                 if (hitCollider.collider.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
                 {
-                    if (moveable.AbilityToMoveObject(direction))
+                    if (moveable.AbilityToMoveObject(direction, _ForceMovingBlocks))
                     {
                         moveable.MoveObjectTo(moveable.gameObject.transform.position + direction, direction);
                         StartCoroutine(MoveTo(gameObject.transform.position + direction));

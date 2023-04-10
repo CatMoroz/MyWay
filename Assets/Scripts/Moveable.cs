@@ -8,13 +8,18 @@ public class Moveable : MonoBehaviour
     private Vector3 direction;
     [SerializeField] private int _speed = 2;
     [SerializeField] private int _gravitationSpeed = 5;
+    [SerializeField] private int _requiredForceToMove;
     private void Awake()
     {
         TryGrounded();
     }
-    public bool AbilityToMoveObject(Vector3 direction)
+    public bool AbilityToMoveObject(Vector3 direction, int Force)
     {
         this.direction = direction;
+        if (Force < _requiredForceToMove)
+        {
+            return false;
+        }
         if (Physics.Raycast(gameObject.transform.position, Vector3.up, out hitCollider, 1f))
         {
             return false;
@@ -23,7 +28,7 @@ public class Moveable : MonoBehaviour
         {
             if (hitCollider.collider.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
             {
-                return moveable.AbilityToMoveObject(direction);
+                return moveable.AbilityToMoveObject(direction, Force);
             }
             else
             {
