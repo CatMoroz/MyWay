@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 2322309438946525094}
   - component: {fileID: 2322309438946525098}
   - component: {fileID: 2322309438946525099}
+  - component: {fileID: -1527894184330086041}
   m_Layer: 0
   m_Name: CubeMoveable
   m_TagString: Untagged
@@ -162,3 +163,15 @@ MonoBehaviour:
   _speed: 2
   _gravitationSpeed: 5
   _requiredForceToMove: 2
+--- !u!114 &-1527894184330086041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2322309438946525093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37ac2683a25f55442b5776579ba29714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

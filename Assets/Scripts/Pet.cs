@@ -8,11 +8,14 @@ public class Pet : MonoBehaviour
     private bool _canMove = true;
     private Vector3 _directionMove;
     private RaycastHit hitCollider;
+
     [SerializeField] private ControledHeroSwaper _swapControledHero;
     [SerializeField] private EndLevel _endLevel;
     [SerializeField] private int _speed = 2;
     [SerializeField] private int _gravitationSpeed = 5;
     [SerializeField] private int _ForceMovingBlocks = 1;
+
+    public bool IsTaken { get; private set; }
     private void Awake()
     {
         TryGrounded();
@@ -75,6 +78,7 @@ public class Pet : MonoBehaviour
     }
     public void BeTaken(Transform parent)
     {
+        IsTaken = true;
         _canMove = false;
         this.transform.position = new Vector3(parent.position.x + (parent.localScale.x / 2 + this.transform.localScale.x / 2) * parent.forward.x,
             parent.position.y + 0.5f,
@@ -88,6 +92,7 @@ public class Pet : MonoBehaviour
             this.transform.parent.position.z + this.transform.parent.forward.z);
         this.transform.parent = null;
         this.transform.position = newPosition + new Vector3(0, this.transform.localScale.y / 2, 0);
+        IsTaken = false;
         _canMove = true;
         TryGrounded();
     }

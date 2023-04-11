@@ -22,6 +22,17 @@ public class Moveable : MonoBehaviour
         }
         if (Physics.Raycast(gameObject.transform.position, Vector3.up, out hitCollider, 1f))
         {
+            if (hitCollider.collider.TryGetComponent<Pet>(out Pet pet))
+            {
+                if (pet.IsTaken)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
             return false;
         }
         else if (Physics.Raycast(gameObject.transform.position, direction, out hitCollider, 1f))
@@ -43,18 +54,13 @@ public class Moveable : MonoBehaviour
     }
     public void MoveObjectTo(Vector3 target, Vector3 direction)
     {
-        if (Physics.Raycast(gameObject.transform.position, Vector3.up, out hitCollider, 1f))
-        {
-
-        }
-        else if (Physics.Raycast(gameObject.transform.position, direction, out hitCollider, 1f))
+        if (Physics.Raycast(gameObject.transform.position, direction, out hitCollider, 1f))
         {
             if (hitCollider.collider.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
             {
                 moveable.MoveObjectTo(moveable.gameObject.transform.position + direction, direction);
                 StartCoroutine(MoveObjectToCoroutine(target));
             }
-            hitCollider = new RaycastHit();
         }
         else
         {

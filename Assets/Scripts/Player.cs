@@ -9,7 +9,6 @@ public class Player : MonoBehaviour
 {
     private bool _canMove = true;
     private bool _ifPetTaken = false;
-    private Vector3 _directionMove;
     private RaycastHit hitCollider;
     private Pet pet;
     [SerializeField] private ControledHeroSwaper _swapControledHero;
@@ -43,38 +42,33 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.W))
             { 
                 gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 0, gameObject.transform.rotation.z);
-                _directionMove = Vector3.forward;
-                CreatePositionForMovement(_directionMove);
+                CreatePositionForMovement(transform.forward);
             }
             else if (Input.GetKey(KeyCode.S))
             {
                 gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 180, gameObject.transform.rotation.z);
-                _directionMove = Vector3.back;
-                CreatePositionForMovement(_directionMove);
+                CreatePositionForMovement(transform.forward);
             }
             else if (Input.GetKey(KeyCode.A))
             {
                 gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 270, gameObject.transform.rotation.z);
-                _directionMove = Vector3.left;
-                CreatePositionForMovement(_directionMove);
+                CreatePositionForMovement(transform.forward);
             }
             else if (Input.GetKey(KeyCode.D))
             {
                 gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x, 90, gameObject.transform.rotation.z);
-                _directionMove = Vector3.right;
-                CreatePositionForMovement(_directionMove);
+                CreatePositionForMovement(transform.forward);
             }
         }
     }
     private void CreatePositionForMovement(Vector3 direction)
     {
-        if (Physics.Raycast(gameObject.transform.position + _positionMismatch, _directionMove, out hitCollider, 1f))
+        if (Physics.Raycast(gameObject.transform.position + _positionMismatch, transform.forward, out hitCollider, 1f))
         {
-
         }
         else
         {
-            if (Physics.Raycast(gameObject.transform.position, _directionMove, out hitCollider, 1f))
+            if (Physics.Raycast(gameObject.transform.position, transform.forward, out hitCollider, 1f))
             {
                 if (hitCollider.collider.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
                 {
@@ -93,7 +87,7 @@ public class Player : MonoBehaviour
     }
     private void TryTakePet()
     {
-        if (Physics.Raycast(gameObject.transform.position, _directionMove, out hitCollider, 1f))
+        if (Physics.Raycast(gameObject.transform.position, transform.forward, out hitCollider, 1f))
         {
             if (hitCollider.collider.gameObject.TryGetComponent<Pet>(out Pet pet))
             {
@@ -101,7 +95,7 @@ public class Player : MonoBehaviour
                 _ifPetTaken = true;
                 pet.BeTaken(this.transform);
             }
-            else if (Physics.Raycast(gameObject.transform.position + _positionMismatch, _directionMove, out hitCollider, 1f))
+            else if (Physics.Raycast(gameObject.transform.position + _positionMismatch, transform.forward, out hitCollider, 1f))
             {
                 if (hitCollider.collider.gameObject.TryGetComponent<Pet>(out Pet pet1))
                 {
@@ -114,16 +108,19 @@ public class Player : MonoBehaviour
     }
     private void TryLowerThePet()
     {
-        if (Physics.Raycast(gameObject.transform.position, _directionMove, out hitCollider, 1f))
+        if (Physics.Raycast(gameObject.transform.position, transform.forward, out hitCollider, 1f))
         {
-            if (Physics.Raycast(gameObject.transform.position + _positionMismatch, _directionMove, out hitCollider, 1f))
+            if (hitCollider.collider.TryGetComponent<Stable>(out Stable stable))
             {
-            }
-            else
-            {
-                _ifPetTaken = false;
-                pet.BeLoweredDown(Vector3.up);
-                pet = null;
+                if (Physics.Raycast(gameObject.transform.position + _positionMismatch, transform.forward, out hitCollider, 1f))
+                {
+                }
+                else
+                {
+                    _ifPetTaken = false;
+                    pet.BeLoweredDown(Vector3.up);
+                    pet = null;
+                }
             }
         }
         else
