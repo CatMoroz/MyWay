@@ -26,7 +26,22 @@ public class Moveable : MonoBehaviour
             {
                 if (pet.IsTaken)
                 {
-                    return true;
+                    if (Physics.Raycast(gameObject.transform.position, direction, out hitCollider, 1f))
+                    {
+                        if (hitCollider.collider.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
+                        {
+                            return moveable.AbilityToMoveObject(direction, Force);
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
                 else
                 {

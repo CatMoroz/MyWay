@@ -19,7 +19,7 @@ public class LevelControler : MonoBehaviour
     }
     public void LevelComplete()
     {
-        if (_levelCompleted < _sceneIndex)
+        if (_levelCompleted <= _sceneIndex)
         {
             PlayerPrefs.SetInt("LevelCompleted", _sceneIndex);
         }

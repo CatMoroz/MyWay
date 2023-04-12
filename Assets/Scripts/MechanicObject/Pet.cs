@@ -70,6 +70,10 @@ public class Pet : MonoBehaviour
                     StartCoroutine(MoveTo(gameObject.transform.position + LengthHole * direction));
                 }
             }
+            else if (hitCollider.collider.gameObject.TryGetComponent<CabinHole>(out CabinHole cabinHole))
+            {
+                StartCoroutine(MoveTo(gameObject.transform.position + direction));
+            }
         }
         else
         {
