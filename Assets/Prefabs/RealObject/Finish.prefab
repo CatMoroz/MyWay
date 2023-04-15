@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1386206842345271311}
   - component: {fileID: 359547340679669372}
   - component: {fileID: 4678600331459414944}
+  - component: {fileID: 5584394610157527385}
   m_Layer: 0
   m_Name: Finish
   m_TagString: Untagged
@@ -97,7 +98,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 0.1}
-  m_Center: {x: 0, y: 0, z: -0.55}
+  m_Center: {x: 0, y: 0, z: 0.05}
 --- !u!114 &4678600331459414944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,8 +115,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: EndLevel, Assembly-CSharp
-        m_MethodName: PlusActiveBlock
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: PlusActivatedBlock
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -129,8 +130,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: EndLevel, Assembly-CSharp
-        m_MethodName: MinusActiveBlock
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: MinusActivatedBlock
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -140,3 +141,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5584394610157527385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593410511662158298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37ac2683a25f55442b5776579ba29714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

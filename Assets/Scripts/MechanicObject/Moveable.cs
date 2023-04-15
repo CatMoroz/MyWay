@@ -6,6 +6,7 @@ public class Moveable : MonoBehaviour
 {
     private RaycastHit hitCollider;
     private Vector3 direction;
+    [SerializeField] private LevelManager _levelManager;
     [SerializeField] private int _speed = 2;
     [SerializeField] private int _gravitationSpeed = 5;
     [SerializeField] private int _requiredForceToMove;
@@ -95,12 +96,29 @@ public class Moveable : MonoBehaviour
     {
         if (Physics.Raycast(gameObject.transform.position, Vector3.down, out hitCollider, 10f))
         {
-            if (hitCollider.collider.gameObject.transform.position.y + hitCollider.collider.gameObject.transform.localScale.y / 2 < transform.position.y - transform.localScale.y / 2)
+            if (hitCollider.collider.gameObject.TryGetComponent<Player>(out Player player))
             {
-                Vector3 GroudedPosition = new Vector3(transform.position.x,
-                    hitCollider.collider.gameObject.transform.position.y + hitCollider.collider.gameObject.transform.localScale.y / 2 + transform.localScale.y / 2,
-                    transform.position.z);
-                StartCoroutine(Gravitation(GroudedPosition));
+                if (hitCollider.collider.gameObject.transform.position.y + 1.5f < transform.position.y - transform.localScale.y / 2)
+                {
+                    Vector3 GroudedPosition = new Vector3(transform.position.x,
+                        hitCollider.collider.gameObject.transform.position.y + 1.5f + transform.localScale.y / 2,
+                        transform.position.z);
+                    StartCoroutine(Gravitation(GroudedPosition));
+                }
+                else
+                {
+                    _levelManager.Lose();
+                }
+            }
+            else
+            {
+                if (hitCollider.collider.gameObject.transform.position.y + hitCollider.collider.gameObject.transform.localScale.y / 2 < transform.position.y - transform.localScale.y / 2)
+                {
+                    Vector3 GroudedPosition = new Vector3(transform.position.x,
+                        hitCollider.collider.gameObject.transform.position.y + hitCollider.collider.gameObject.transform.localScale.y / 2 + transform.localScale.y / 2,
+                        transform.position.z);
+                    StartCoroutine(Gravitation(GroudedPosition));
+                }
             }
         }
     }
@@ -110,6 +128,17 @@ public class Moveable : MonoBehaviour
         {
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, target, _gravitationSpeed * Time.deltaTime);
             yield return null;
+        }
+        if (Physics.Raycast(gameObject.transform.position, Vector3.down, out hitCollider, 1f))
+        {
+            if (hitCollider.collider.gameObject.TryGetComponent<Stable>(out Stable stable))
+            {
+
+            }
+            else
+            {
+                _levelManager.Lose();
+            }
         }
     }
     public void StartCoroutineMoveOnLift(Vector3 NextPosition, float _speed)

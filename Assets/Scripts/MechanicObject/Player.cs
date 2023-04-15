@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private RaycastHit hitCollider;
     private Pet pet;
     [SerializeField] private ControledHeroSwaper _swapControledHero;
-    [SerializeField] private EndLevel _endLevel;
+    [SerializeField] private LevelManager _levelManager;
     [SerializeField] private int _speed = 2;
     [SerializeField] private int _gravitationSpeed = 5;
     [SerializeField] private int _ForceMovingBlocks = 2;
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        if (_canMove && _swapControledHero.IsControledPlayer && _endLevel.IsGameActive)
+        if (_canMove && _swapControledHero.IsControledPlayer && _levelManager.IsGameActive)
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
@@ -161,6 +161,17 @@ public class Player : MonoBehaviour
         {
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, target, _gravitationSpeed * Time.deltaTime);
             yield return null;
+        }
+        if (Physics.Raycast(gameObject.transform.position, Vector3.down, out hitCollider, 1f))
+        {
+            if (hitCollider.collider.gameObject.TryGetComponent<Stable>(out Stable stable))
+            {
+
+            }
+            else
+            {
+                _levelManager.Lose();
+            }
         }
         _canMove = true;
     }

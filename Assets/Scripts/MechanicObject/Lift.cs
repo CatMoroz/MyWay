@@ -37,7 +37,7 @@ public class Lift : MonoBehaviour
         }
     }
 
-    public void PlusActiveBlock()
+    public void PlusActivatedBlock()
     {
         _activedActivatingBlocks++;
         if (_activedActivatingBlocks == _activatingBlocks.Length)
@@ -73,7 +73,7 @@ public class Lift : MonoBehaviour
             }
         }
     }
-    public void MinusActiveBlock()
+    public void MinusActivatedBlock()
     {
         _activedActivatingBlocks--;
         if (_activedActivatingBlocks + 1 == _activatingBlocks.Length)

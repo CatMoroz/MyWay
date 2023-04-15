@@ -19,7 +19,7 @@ public class Wall : MonoBehaviour
         _transformInActive = transform.position - new Vector3(0, _floorChange, 0);
     }
 
-    public void PlusActiveBlock()
+    public void PlusActivatedBlock()
     {
         _activedActivatingBlocks++;
         if (_activedActivatingBlocks == _activatingBlocks.Length)
@@ -28,7 +28,7 @@ public class Wall : MonoBehaviour
             StartCoroutine(WallGoes(_transformInActive));
         }
     }
-    public void MinusActiveBlock()
+    public void MinusActivatedBlock()
     {
         _activedActivatingBlocks--;
         if (_activedActivatingBlocks + 1 == _activatingBlocks.Length)
