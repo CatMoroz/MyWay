@@ -62,6 +62,8 @@ public class LevelManager : MonoBehaviour
     public void LevelComplete()
     {
         IsGameActive = false;
+        if (AudioPlayer.Player)
+            AudioPlayer.Player.PlaySounds("yay");
         _stopLevelWindow.LevelComplete();
         _stopLevelWindow.gameObject.SetActive(true);
         _swapHeroButton.gameObject.SetActive(false);
