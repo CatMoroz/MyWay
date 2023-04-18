@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class ActivatingBlock : MonoBehaviour
 {
-    public UnityEvent IsActive;
-    public UnityEvent IsNotActive;
+    public UnityEvent<bool> StartWork;
+
 
 }

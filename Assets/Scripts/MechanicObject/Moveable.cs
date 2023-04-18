@@ -6,6 +6,7 @@ public class Moveable : MonoBehaviour
 {
     private RaycastHit hitCollider;
     private Vector3 direction;
+    private bool _moveOnLift;
     [SerializeField] private LevelManager _levelManager;
     [SerializeField] private int _speed = 2;
     [SerializeField] private int _gravitationSpeed = 5;
@@ -18,6 +19,10 @@ public class Moveable : MonoBehaviour
     {
         this.direction = direction;
         if (Force < _requiredForceToMove)
+        {
+            return false;
+        }
+        if (_moveOnLift)
         {
             return false;
         }
@@ -151,10 +156,12 @@ public class Moveable : MonoBehaviour
     }
     private IEnumerator MoveOnLift(Vector3 NextPosition, float _speed)
     {
+        _moveOnLift = true;
         while (gameObject.transform.position != NextPosition + new Vector3(0, transform.localScale.y / 2, 0))
         {
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, NextPosition + new Vector3(0, transform.localScale.y / 2, 0), _speed * Time.deltaTime);
             yield return null;
         }
+        _moveOnLift = false;
     }
 }

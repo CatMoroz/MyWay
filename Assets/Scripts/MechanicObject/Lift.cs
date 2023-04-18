@@ -7,6 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 public class Lift : MonoBehaviour
 {
     [SerializeField] private ActivatingBlock[] _activatingBlocks;
+    [SerializeField] private LevelManager _levelManager;
 
     [SerializeField] private float _floorChange;
     [SerializeField] private int _speed = 3;
@@ -27,7 +28,25 @@ public class Lift : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        _blocksOnLift = other;
+        if (other.gameObject.transform.position.y< transform.position.y)
+        {
+            if (other.gameObject.TryGetComponent<Player>(out Player player))
+            {
+                _levelManager.Lose();
+            }
+            else if (other.gameObject.TryGetComponent<Pet>(out Pet pet))
+            {
+                _levelManager.Lose();
+            }
+            else
+            {
+                Destroy(other.gameObject);
+            }
+        }
+        else
+        {
+            _blocksOnLift = other;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -44,27 +63,7 @@ public class Lift : MonoBehaviour
         {
             if (_blocksOnLift != null)
             {
-                if (_blocksOnLift.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
-                {
-                    moveable.StopCoroutineMoveOnLift(_transformOutActive, _speed);
-                    moveable.StartCoroutineMoveOnLift(_transformInActive, _speed);
-                    StopAllCoroutines();
-                    StartCoroutine(LiftGoes(_transformInActive));
-                }
-                else if (_blocksOnLift.gameObject.TryGetComponent<Pet>(out Pet pet))
-                {
-                    pet.StopCoroutineMoveOnLift(_transformOutActive, _speed);
-                    pet.StartCoroutineMoveOnLift(_transformInActive, _speed);
-                    StopAllCoroutines();
-                    StartCoroutine(LiftGoes(_transformInActive));
-                }
-                else if (_blocksOnLift.gameObject.TryGetComponent<Player>(out Player player))
-                {
-                    player.StopCoroutineMoveOnLift(_transformOutActive, _speed);
-                    player.StartCoroutineMoveOnLift(_transformInActive, _speed);
-                    StopAllCoroutines();
-                    StartCoroutine(LiftGoes(_transformInActive));
-                }
+                MoveInActive();
             }
             else
             {
@@ -80,33 +79,61 @@ public class Lift : MonoBehaviour
         {
             if (_blocksOnLift != null)
             {
-                if (_blocksOnLift.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
-                {
-                    moveable.StopCoroutineMoveOnLift(_transformInActive, _speed);
-                    moveable.StartCoroutineMoveOnLift(_transformOutActive, _speed);
-                    StopAllCoroutines();
-                    StartCoroutine(LiftGoes(_transformOutActive));
-                }
-                else if (_blocksOnLift.gameObject.TryGetComponent<Pet>(out Pet pet))
-                {
-                    pet.StopCoroutineMoveOnLift(_transformInActive, _speed);
-                    pet.StartCoroutineMoveOnLift(_transformOutActive, _speed);
-                    StopAllCoroutines();
-                    StartCoroutine(LiftGoes(_transformOutActive));
-                }
-                else if (_blocksOnLift.gameObject.TryGetComponent<Player>(out Player player))
-                {
-                    player.StopCoroutineMoveOnLift(_transformInActive, _speed);
-                    player.StartCoroutineMoveOnLift(_transformOutActive, _speed);
-                    StopAllCoroutines();
-                    StartCoroutine(LiftGoes(_transformOutActive));
-                }
+                MoveOutActive();
             }
             else
             {
                 StopAllCoroutines();
                 StartCoroutine(LiftGoes(_transformOutActive));
             }
+        }
+    }
+    private void MoveInActive()
+    {
+        if (_blocksOnLift.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
+        {
+            moveable.StopCoroutineMoveOnLift(_transformOutActive, _speed);
+            moveable.StartCoroutineMoveOnLift(_transformInActive, _speed);
+            StopAllCoroutines();
+            StartCoroutine(LiftGoes(_transformInActive));
+        }
+        else if (_blocksOnLift.gameObject.TryGetComponent<Pet>(out Pet pet))
+        {
+            pet.StopCoroutineMoveOnLift(_transformOutActive, _speed);
+            pet.StartCoroutineMoveOnLift(_transformInActive, _speed);
+            StopAllCoroutines();
+            StartCoroutine(LiftGoes(_transformInActive));
+        }
+        else if (_blocksOnLift.gameObject.TryGetComponent<Player>(out Player player))
+        {
+            player.StopCoroutineMoveOnLift(_transformOutActive, _speed);
+            player.StartCoroutineMoveOnLift(_transformInActive, _speed);
+            StopAllCoroutines();
+            StartCoroutine(LiftGoes(_transformInActive));
+        }
+    }
+    private void MoveOutActive()
+    {
+        if (_blocksOnLift.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
+        {
+            moveable.StopCoroutineMoveOnLift(_transformInActive, _speed);
+            moveable.StartCoroutineMoveOnLift(_transformOutActive, _speed);
+            StopAllCoroutines();
+            StartCoroutine(LiftGoes(_transformOutActive));
+        }
+        else if (_blocksOnLift.gameObject.TryGetComponent<Pet>(out Pet pet))
+        {
+            pet.StopCoroutineMoveOnLift(_transformInActive, _speed);
+            pet.StartCoroutineMoveOnLift(_transformOutActive, _speed);
+            StopAllCoroutines();
+            StartCoroutine(LiftGoes(_transformOutActive));
+        }
+        else if (_blocksOnLift.gameObject.TryGetComponent<Player>(out Player player))
+        {
+            player.StopCoroutineMoveOnLift(_transformInActive, _speed);
+            player.StartCoroutineMoveOnLift(_transformOutActive, _speed);
+            StopAllCoroutines();
+            StartCoroutine(LiftGoes(_transformOutActive));
         }
     }
     private IEnumerator LiftGoes(Vector3 NextPosition)

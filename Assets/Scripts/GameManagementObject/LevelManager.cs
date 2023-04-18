@@ -17,12 +17,19 @@ public class LevelManager : MonoBehaviour
     private int _activedActivatingBlocks;
     public bool IsGameActive { get; private set; } = true;
 
-    public void PlusActivatedBlock()
+    public void ActivatingBlockUsed(bool ActivatingBlockStatus)
     {
-        _activedActivatingBlocks++;
-        if (_activedActivatingBlocks == _EndLevelActivatingBlocks.Length)
+        if (ActivatingBlockStatus)
         {
-            LevelComplete();
+            _activedActivatingBlocks++;
+            if (_activedActivatingBlocks == _EndLevelActivatingBlocks.Length)
+            {
+                LevelComplete();
+            }
+        }
+        else
+        {
+            _activedActivatingBlocks--;
         }
     }
     public void MinusActivatedBlock()

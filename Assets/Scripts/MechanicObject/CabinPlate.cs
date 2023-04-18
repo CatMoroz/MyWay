@@ -9,7 +9,7 @@ public class CabinPlate : ActivatingBlock
     {
         if (other.TryGetComponent<Pet>(out Pet pet))
         {
-            IsActive.Invoke();
+            StartWork.Invoke(true);
         }
         _collidersOnPlate.Add(other);
     }
@@ -18,7 +18,7 @@ public class CabinPlate : ActivatingBlock
         _collidersOnPlate.Remove(other);
         if (other.TryGetComponent<Pet>(out Pet pet))
         {
-            IsNotActive.Invoke();
+            StartWork.Invoke(false);
         }
     }
 }

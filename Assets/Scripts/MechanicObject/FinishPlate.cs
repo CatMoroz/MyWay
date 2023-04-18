@@ -9,7 +9,7 @@ public class FinishPlate : ActivatingBlock
     {
         if (other.TryGetComponent<Player>(out Player player))
         {
-            IsActive.Invoke();
+            StartWork.Invoke(true);
         }
         _collidersOnPlate.Add(other);
     }
@@ -18,7 +18,7 @@ public class FinishPlate : ActivatingBlock
         _collidersOnPlate.Remove(other);
         if (other.TryGetComponent<Player>(out Player player))
         {
-            IsNotActive.Invoke();
+            StartWork.Invoke(false);
         }
     }
 }

@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private bool _canMove = true;
     private bool _ifPetTaken = false;
     private RaycastHit hitCollider;
+    private Outline _outline;
     private Pet pet;
     [SerializeField] private ControledHeroSwaper _swapControledHero;
     [SerializeField] private LevelManager _levelManager;
@@ -22,10 +23,19 @@ public class Player : MonoBehaviour
     //models
     private void Awake()
     {
+        _outline = GetComponent<Outline>();
         TryGrounded();
     }
     private void Update()
     {
+        if (_swapControledHero.IsControledPlayer)
+        {
+            _outline.enabled = true;
+        }
+        else
+        {
+            _outline.enabled = false;
+        }
         if (_canMove && _swapControledHero.IsControledPlayer && _levelManager.IsGameActive)
         {
             if (Input.GetKeyDown(KeyCode.G))

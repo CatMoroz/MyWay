@@ -9,7 +9,7 @@ public class PressurePlate : ActivatingBlock
     {
         if (_collidersOnPlate.Count == 0)
         {
-            IsActive.Invoke();
+            StartWork.Invoke(true);
         }
         _collidersOnPlate.Add(other);
     }
@@ -18,7 +18,7 @@ public class PressurePlate : ActivatingBlock
         _collidersOnPlate.Remove(other);
         if (_collidersOnPlate.Count==0)
         {
-            IsNotActive.Invoke();
+            StartWork.Invoke(false);
         }
     }
 

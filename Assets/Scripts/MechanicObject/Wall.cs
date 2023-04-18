@@ -19,22 +19,25 @@ public class Wall : MonoBehaviour
         _transformInActive = transform.position - new Vector3(0, _floorChange, 0);
     }
 
-    public void PlusActivatedBlock()
+    public void ActivatingBlockUsed(bool activeOrNot)
     {
-        _activedActivatingBlocks++;
-        if (_activedActivatingBlocks == _activatingBlocks.Length)
+        if (activeOrNot)
         {
-            StopAllCoroutines();
-            StartCoroutine(WallGoes(_transformInActive));
+            _activedActivatingBlocks++;
+            if (_activedActivatingBlocks == _activatingBlocks.Length)
+            {
+                StopAllCoroutines();
+                StartCoroutine(WallGoes(_transformInActive));
+            }
         }
-    }
-    public void MinusActivatedBlock()
-    {
-        _activedActivatingBlocks--;
-        if (_activedActivatingBlocks + 1 == _activatingBlocks.Length)
+        else
         {
-            StopAllCoroutines();
-            StartCoroutine(WallGoes(_transformOutActive));
+            _activedActivatingBlocks--;
+            if (_activedActivatingBlocks + 1 == _activatingBlocks.Length)
+            {
+                StopAllCoroutines();
+                StartCoroutine(WallGoes(_transformOutActive));
+            }
         }
     }
     private IEnumerator WallGoes(Vector3 NextPosition)

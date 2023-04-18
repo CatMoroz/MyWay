@@ -8,6 +8,7 @@ public class Pet : MonoBehaviour
     private bool _canMove = true;
     private Vector3 _directionMove;
     private RaycastHit hitCollider;
+    private Outline _outline;
 
     [SerializeField] private ControledHeroSwaper _swapControledHero;
     [SerializeField] private LevelManager _levelManager;
@@ -18,10 +19,19 @@ public class Pet : MonoBehaviour
     public bool IsTaken { get; private set; }
     private void Awake()
     {
+        _outline = GetComponent<Outline>();
         TryGrounded();
     }
     private void Update()
     {
+        if (_swapControledHero.IsControledPet)
+        {
+            _outline.enabled = true;
+        }
+        else
+        {
+            _outline.enabled = false;
+        }
         if (_canMove && _swapControledHero.IsControledPet && _levelManager.IsGameActive)
         {
             if (Input.GetKey(KeyCode.W))
@@ -92,10 +102,10 @@ public class Pet : MonoBehaviour
     public void BeLoweredDown(Vector3 newPositionYBeforeCalculated)
     {
         Vector3 newPosition = new Vector3(this.transform.parent.position.x + this.transform.parent.forward.x,
-            newPositionYBeforeCalculated.y,
+            newPositionYBeforeCalculated.y + this.transform.parent.position.y - 0.5f,
             this.transform.parent.position.z + this.transform.parent.forward.z);
         this.transform.parent = null;
-        this.transform.position = newPosition + new Vector3(0, this.transform.localScale.y / 2, 0);
+        this.transform.position = newPosition + Vector3.up/2;
         IsTaken = false;
         _canMove = true;
         TryGrounded();
@@ -134,7 +144,7 @@ public class Pet : MonoBehaviour
                 if (hitCollider.collider.gameObject.transform.position.y + hitCollider.collider.gameObject.transform.localScale.y / 2 < transform.position.y - transform.localScale.y / 2)
                 {
                     Vector3 GroudedPosition = new Vector3(transform.position.x,
-                        hitCollider.collider.gameObject.transform.position.y + hitCollider.collider.gameObject.transform.localScale.y / 2 + transform.localScale.y / 2,
+                        hitCollider.collider.gameObject.transform.position.y + hitCollider.collider.gameObject.transform.localScale.y / 2 + transform.localScale.y *1.33f/ 2,
                         transform.position.z);
                     StartCoroutine(Gravitation(GroudedPosition));
                 }
