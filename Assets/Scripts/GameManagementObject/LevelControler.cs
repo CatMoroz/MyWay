@@ -34,6 +34,6 @@ public class LevelControler : MonoBehaviour
     }
     public void OpenNextLevel()
     {
-        SceneManager.LoadScene(PlayerPrefs.GetInt("LevelCompleted")+1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

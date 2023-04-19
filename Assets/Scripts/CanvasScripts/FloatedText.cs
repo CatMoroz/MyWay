@@ -6,12 +6,18 @@ using UnityEngine.UI;
 public class FloatedText : MonoBehaviour
 {
     private TMP_Text textUI;
+    private string textDontChanged;
     public bool IfCompleted { get; private set; }
-    void Start()
+    void Awake()
     {
         textUI = GetComponent<TMP_Text>();
-        StartCoroutine("ShowText", textUI.text);
+        textDontChanged = textUI.text;
     }
+    private void OnEnable()
+    {
+        StartCoroutine("ShowText", textDontChanged);
+    }
+
 
     IEnumerator ShowText(string text)
     {

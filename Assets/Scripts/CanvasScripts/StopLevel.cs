@@ -11,6 +11,7 @@ public class StopLevel : MonoBehaviour
     [SerializeField] private Button NextLevelButton;
     [SerializeField] private Button ContinueLevelButton;
     [SerializeField] private Button LoseLevelButton;
+    [SerializeField] private GameObject TuturialText;
     private int _levelCompleted;
     private void OnEnable()
     {
@@ -30,6 +31,10 @@ public class StopLevel : MonoBehaviour
         NextLevelButton.gameObject.SetActive(true);
         ContinueLevelButton.gameObject.SetActive(false);
         LoseLevelButton.gameObject.SetActive(false);
+        if (TuturialText!=null)
+        {
+            TuturialText.SetActive(false);
+        }
     }
     public void OnPause()
     {
@@ -37,6 +42,10 @@ public class StopLevel : MonoBehaviour
         NextLevelButton.gameObject.SetActive(false);
         ContinueLevelButton.gameObject.SetActive(true);
         LoseLevelButton.gameObject.SetActive(false);
+        if (TuturialText != null)
+        {
+            TuturialText.SetActive(false);
+        }
     }
     public void Lose()
     {
@@ -44,5 +53,9 @@ public class StopLevel : MonoBehaviour
         NextLevelButton.gameObject.SetActive(false);
         ContinueLevelButton.gameObject.SetActive(false);
         LoseLevelButton.gameObject.SetActive(true);
+        if (TuturialText != null)
+        {
+            TuturialText.SetActive(false);
+        }
     }
 }
