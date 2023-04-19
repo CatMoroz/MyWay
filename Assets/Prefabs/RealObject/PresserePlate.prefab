@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1336908098622655862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2049199070972911416}
@@ -46,7 +46,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.1, z: 0.5}
+  m_Size: {x: 0.5, y: 1, z: 0.5}
   m_Center: {x: 0, y: 0.05, z: 0}
 --- !u!114 &1336908098622655852
 MonoBehaviour:
@@ -60,36 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ed8d55ea38f0a429ba15b12f68147b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsActive:
+  StartWork:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Wall, Assembly-CSharp
-        m_MethodName: PlusActiveBlock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  IsNotActive:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Wall, Assembly-CSharp
-        m_MethodName: MinusActiveBlock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &875447779111966109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +185,7 @@ Transform:
   m_GameObject: {fileID: 8466681016568471119}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.05, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_LocalScale: {x: 50, y: 50, z: 500}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4426722194899333532}
