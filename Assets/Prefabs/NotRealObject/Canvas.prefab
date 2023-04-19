@@ -403,7 +403,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -903,7 +903,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1414,6 +1414,7 @@ MonoBehaviour:
   NextLevelButton: {fileID: 8596594246320193778}
   ContinueLevelButton: {fileID: 8596594247954305731}
   LoseLevelButton: {fileID: 8596594247086696030}
+  TuturialText: {fileID: 0}
 --- !u!1 &8596594246676405080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2101,9 +2102,11 @@ MonoBehaviour:
   _soundNames:
   - click
   - yay
+  - music
   _sounds:
   - {fileID: 8300000, guid: fd4b59d1565d0ac4986440f84703f22f, type: 3}
   - {fileID: 8300000, guid: 72edb86b4b31a7c4a92aa24c26f07fcf, type: 3}
+  - {fileID: 8300000, guid: cadc6ef23cf7a1a4c8b82bd98d32cc18, type: 3}
   _soundPlayer: {fileID: 4195415176897428459}
   _musicPlayer: {fileID: 2953439509322070726}
 --- !u!81 &484951254162001417

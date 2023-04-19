@@ -25,6 +25,8 @@ public class AudioPlayer : MonoBehaviour
         {
             _allSounds[_soundNames[i]] = _sounds[i];
         }
+
+        PlayMusic();
     }
 
     public void ChangeState()
