@@ -13,10 +13,10 @@ public class StopLevel : MonoBehaviour
     [SerializeField] private Button LoseLevelButton;
     [SerializeField] private GameObject TuturialText;
     private int _levelCompleted;
-    private void OnEnable()
+    public void LevelComplete()
     {
         _levelCompleted = PlayerPrefs.GetInt("LevelCompleted");
-        if (SceneManager.GetActiveScene().buildIndex<= _levelCompleted)
+        if (SceneManager.GetActiveScene().buildIndex <= _levelCompleted)
         {
             NextLevelButton.interactable = true;
         }
@@ -24,9 +24,6 @@ public class StopLevel : MonoBehaviour
         {
             NextLevelButton.interactable = false;
         }
-    }
-    public void LevelComplete()
-    {
         LevelStatusText.text = "Уровень пройден";
         NextLevelButton.gameObject.SetActive(true);
         ContinueLevelButton.gameObject.SetActive(false);
