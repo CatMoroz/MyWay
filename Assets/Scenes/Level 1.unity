@@ -1771,6 +1771,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 439642726366026927, guid: 7c99d815b2223c548b661e6c6b1103aa,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1760772299182833118}
+    - target: {fileID: 439642726366026927, guid: 7c99d815b2223c548b661e6c6b1103aa,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CancelInvoke
+      objectReference: {fileID: 0}
+    - target: {fileID: 439642726366026927, guid: 7c99d815b2223c548b661e6c6b1103aa,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.MonoBehaviour, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 633452800471217898, guid: 7c99d815b2223c548b661e6c6b1103aa,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1760772299182833118}
+    - target: {fileID: 633452800471217898, guid: 7c99d815b2223c548b661e6c6b1103aa,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CancelInvoke
+      objectReference: {fileID: 0}
+    - target: {fileID: 633452800471217898, guid: 7c99d815b2223c548b661e6c6b1103aa,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.MonoBehaviour, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1760772298392031981, guid: 7c99d815b2223c548b661e6c6b1103aa,
         type: 3}
       propertyPath: TuturialText
@@ -1863,6 +1893,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c99d815b2223c548b661e6c6b1103aa, type: 3}
+--- !u!114 &1760772299182833118 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3293172712565078457, guid: 7c99d815b2223c548b661e6c6b1103aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1760772299182833117}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9d4b4c51351d04eb42f7267bcdedb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3033229591250892270
 GameObject:
   m_ObjectHideFlags: 0

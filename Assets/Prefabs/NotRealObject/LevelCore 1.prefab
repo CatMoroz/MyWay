@@ -44,7 +44,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3293172712565078457}
         m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
         m_MethodName: PlaySounds
         m_Mode: 5
@@ -2236,7 +2236,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cadc6ef23cf7a1a4c8b82bd98d32cc18, type: 3}
   _soundPlayer: {fileID: 6132673542533461773}
   _musicPlayer: {fileID: 5178577092909643296}
-  _musicVolume: 0.1
+  _musicVolume: 0.3
 --- !u!81 &7608934239887721199
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2512,7 +2512,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3293172712565078457}
         m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
         m_MethodName: PlaySounds
         m_Mode: 5
@@ -3080,7 +3080,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
