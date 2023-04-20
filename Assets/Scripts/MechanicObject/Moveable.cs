@@ -14,6 +14,10 @@ public class Moveable : MonoBehaviour
     private void Awake()
     {
         TryGrounded();
+        if (_levelManager == null)
+        {
+            Debug.Log("mov");
+        }
     }
     public bool AbilityToMoveObject(Vector3 direction, int Force)
     {

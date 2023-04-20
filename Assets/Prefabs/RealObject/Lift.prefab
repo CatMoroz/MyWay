@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1174532377969242734}
   - component: {fileID: 1174532377969242735}
   - component: {fileID: 1174532377969242732}
+  - component: {fileID: 1317630527}
   m_Layer: 8
   m_Name: Lift
   m_TagString: Untagged
@@ -96,8 +97,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 1, z: 0.5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.5, y: 1.5, z: 0.5}
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!114 &1174532377969242732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,5 +113,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activatingBlocks:
   - {fileID: 0}
+  _levelManager: {fileID: 0}
   _floorChange: 1
   _speed: 3
+--- !u!114 &1317630527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174532377969242730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37ac2683a25f55442b5776579ba29714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

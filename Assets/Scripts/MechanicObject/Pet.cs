@@ -188,9 +188,9 @@ public class Pet : MonoBehaviour
             yield break;
         }
         _canMove = false;
-        while (gameObject.transform.position != NextPosition + new Vector3(0, transform.localScale.y / 2, 0))
+        while (gameObject.transform.position != NextPosition + Vector3.up / 2)
         {
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, NextPosition + new Vector3(0, transform.localScale.y / 2, 0), _speed * Time.deltaTime);
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, NextPosition + Vector3.up / 2, _speed * Time.deltaTime);
             yield return null;
         }
         _canMove = true;

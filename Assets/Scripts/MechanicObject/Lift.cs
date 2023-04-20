@@ -19,6 +19,10 @@ public class Lift : MonoBehaviour
 
     private void Awake()
     {
+        if (_levelManager == null)
+        {
+            Debug.Log("lif");
+        }
         _transformOutActive = transform.position;
         _transformInActive = transform.position + new Vector3(0, _floorChange, 0);
     }
@@ -38,7 +42,7 @@ public class Lift : MonoBehaviour
             {
                 _levelManager.Lose();
             }
-            else
+            else if (other.gameObject.TryGetComponent<Moveable>(out Moveable moveable))
             {
                 Destroy(other.gameObject);
             }
@@ -56,35 +60,39 @@ public class Lift : MonoBehaviour
         }
     }
 
-    public void PlusActivatedBlock()
+    
+    public void ActivatingBlockUsed(bool ActivatingBlockStatus)
     {
-        _activedActivatingBlocks++;
-        if (_activedActivatingBlocks == _activatingBlocks.Length)
+        if (ActivatingBlockStatus)
         {
-            if (_blocksOnLift != null)
+            _activedActivatingBlocks++;
+            if (_activedActivatingBlocks == _activatingBlocks.Length)
             {
-                MoveInActive();
-            }
-            else
-            {
-                StopAllCoroutines();
-                StartCoroutine(LiftGoes(_transformInActive));
+                if (_blocksOnLift != null)
+                {
+                    MoveInActive();
+                }
+                else
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(LiftGoes(_transformInActive));
+                }
             }
         }
-    }
-    public void MinusActivatedBlock()
-    {
-        _activedActivatingBlocks--;
-        if (_activedActivatingBlocks + 1 == _activatingBlocks.Length)
+        else
         {
-            if (_blocksOnLift != null)
+            _activedActivatingBlocks--;
+            if (_activedActivatingBlocks + 1 == _activatingBlocks.Length)
             {
-                MoveOutActive();
-            }
-            else
-            {
-                StopAllCoroutines();
-                StartCoroutine(LiftGoes(_transformOutActive));
+                if (_blocksOnLift != null)
+                {
+                    MoveOutActive();
+                }
+                else
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(LiftGoes(_transformOutActive));
+                }
             }
         }
     }
