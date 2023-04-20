@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 877f6b9279ef03f4c9fff0491afd012a, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.25097647, g: 0.25097647, b: 0.25097647, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -381,7 +381,7 @@ PrefabInstance:
     - target: {fileID: 1495788584850807175, guid: 098c8d262d291d84ca2334d71bd6d5fb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1495788584850807175, guid: 098c8d262d291d84ca2334d71bd6d5fb,
         type: 3}
@@ -5956,7 +5956,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -123.72, y: 0}
-  m_SizeDelta: {x: -247.45, y: 173}
+  m_SizeDelta: {x: -247.45, y: 120}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &452288523
 MonoBehaviour:
@@ -6020,12 +6020,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 120
+  m_fontSize: 63.6
   m_fontSizeBase: 120
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 36
+  m_fontSizeMax: 120
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 1024
@@ -6890,7 +6890,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -123.723, y: 0}
-  m_SizeDelta: {x: -247.446, y: 173}
+  m_SizeDelta: {x: -247.446, y: 120}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &527301717
 MonoBehaviour:
@@ -6959,9 +6959,9 @@ MonoBehaviour:
   m_fontSize: 102
   m_fontSizeBase: 102
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 36
+  m_fontSizeMax: 120
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 1024
@@ -7364,7 +7364,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -123.72, y: 0}
-  m_SizeDelta: {x: -247.44, y: 173}
+  m_SizeDelta: {x: -247.44, y: 120}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &580195580
 MonoBehaviour:
@@ -7432,9 +7432,9 @@ MonoBehaviour:
   m_fontSize: 120
   m_fontSizeBase: 120
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 36
+  m_fontSizeMax: 120
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 1024
@@ -13767,7 +13767,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -123.72, y: 0}
-  m_SizeDelta: {x: -247.45, y: 173}
+  m_SizeDelta: {x: -247.45, y: 120}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1666525539
 MonoBehaviour:
@@ -13832,9 +13832,9 @@ MonoBehaviour:
   m_fontSize: 120
   m_fontSizeBase: 120
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 36
+  m_fontSizeMax: 120
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 1024
@@ -17021,7 +17021,7 @@ Transform:
   m_Children:
   - {fileID: 9113519344153447758}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7340239122109108919
 MeshFilter:

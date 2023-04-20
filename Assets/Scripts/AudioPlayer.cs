@@ -7,6 +7,7 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] private string[] _soundNames;
     [SerializeField] private AudioClip[] _sounds;
     [SerializeField] private AudioSource _soundPlayer, _musicPlayer;
+    [SerializeField] private float _musicVolume;
 
     private Dictionary<string, AudioClip> _allSounds = new Dictionary<string, AudioClip>();
 
@@ -32,7 +33,7 @@ public class AudioPlayer : MonoBehaviour
     public void ChangeState()
     {
         _soundPlayer.enabled = PlayerPrefs.GetInt("SoundPlays") == 1;
-        _musicPlayer.enabled = PlayerPrefs.GetInt("MusicPlays") == 1;
+        _musicPlayer.volume = PlayerPrefs.GetInt("MusicPlays") * _musicVolume;
     }
 
     public void PlayMusic()
