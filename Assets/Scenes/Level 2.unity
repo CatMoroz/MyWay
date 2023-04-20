@@ -561,8 +561,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\u0412 \u043E\u0442\u043B\u0438\u0447\u0438\u0435 \u043E\u0442 \u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430
-    \u043F\u0438\u0442\u043E\u043C\u0435\u0446 \u043C\u043E\u0436\u0435\u0442 \u043F\u0440\u043E\u043B\u0438\u0437\u0430\u0442\u044C
-    \u0441\u043A\u0432\u043E\u0437\u044C \u0443\u0437\u043A\u0438\u0435 \u0430\u0440\u043A\u0438"
+    \u043F\u0438\u0442\u043E\u043C\u0435\u0446 \u043C\u043E\u0436\u0435\u0442 \u043F\u0440\u043E\u043B\u0435\u0437\u0430\u0442\u044C
+    \u0441\u043A\u0432\u043E\u0437\u044C \u0430\u0440\u043A\u0438"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ddb734d02cc23b941b613f6ba73f8f14, type: 2}
   m_sharedMaterial: {fileID: 293257732575514935, guid: ddb734d02cc23b941b613f6ba73f8f14,
@@ -590,10 +590,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 62.45
+  m_fontSize: 120
   m_fontSizeBase: 120
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 120
   m_fontStyle: 0
@@ -917,7 +917,7 @@ MonoBehaviour:
   m_fontSize: 120
   m_fontSizeBase: 120
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 120
   m_fontStyle: 0

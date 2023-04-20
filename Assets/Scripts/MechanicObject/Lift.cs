@@ -19,10 +19,6 @@ public class Lift : MonoBehaviour
 
     private void Awake()
     {
-        if (_levelManager == null)
-        {
-            Debug.Log("lif");
-        }
         _transformOutActive = transform.position;
         _transformInActive = transform.position + new Vector3(0, _floorChange, 0);
     }

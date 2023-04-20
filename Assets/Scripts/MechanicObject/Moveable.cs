@@ -7,6 +7,7 @@ public class Moveable : MonoBehaviour
     private RaycastHit hitCollider;
     private Vector3 direction;
     private bool _moveOnLift;
+    private bool _ifGravitationWork;
     [SerializeField] private LevelManager _levelManager;
     [SerializeField] private int _speed = 2;
     [SerializeField] private int _gravitationSpeed = 5;
@@ -14,10 +15,6 @@ public class Moveable : MonoBehaviour
     private void Awake()
     {
         TryGrounded();
-        if (_levelManager == null)
-        {
-            Debug.Log("mov");
-        }
     }
     public bool AbilityToMoveObject(Vector3 direction, int Force)
     {
@@ -26,7 +23,7 @@ public class Moveable : MonoBehaviour
         {
             return false;
         }
-        if (_moveOnLift)
+        if (_moveOnLift || _ifGravitationWork)
         {
             return false;
         }
@@ -133,6 +130,7 @@ public class Moveable : MonoBehaviour
     }
     private IEnumerator Gravitation(Vector3 target)
     {
+        _ifGravitationWork = true;
         while (gameObject.transform.position != target)
         {
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, target, _gravitationSpeed * Time.deltaTime);
@@ -149,6 +147,7 @@ public class Moveable : MonoBehaviour
                 _levelManager.Lose();
             }
         }
+        _ifGravitationWork = false;
     }
     public void StartCoroutineMoveOnLift(Vector3 NextPosition, float _speed)
     {
